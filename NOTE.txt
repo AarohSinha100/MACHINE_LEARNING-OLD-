@@ -1,0 +1,1 @@
+First Liiear regression model made by following up the tutorial by NEUARALNINE on Youtube.
