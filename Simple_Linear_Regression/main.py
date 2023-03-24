@@ -1,49 +1,68 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-data = pd.read_csv('data.csv')
-####print(data)
-#loss function
-def loss_function(m,b,points):
-    total_error = 0 #we add all the individual squared errors to it and then we divide by n
-    for i in range(len(points)):
-        x = points.iloc[i].Study_Time
-        y = points.iloc[i].Marks
-        total_error += (y - (m*x+b))**2
-    total_error / float(len(points))
+import seaborn as sns
 
-#L - learning rate
-def gradient_descent(m_now,b_now,points,L): #derivatives
-    m_gradient = 0
-    b_gradient = 0
-    n = len(points)
+#creating the dataset
+area = [2600,3000,3200,3600,4000]
+price = [550000,565000,610000,680000,725000]
+dataset = [[2600,550000],[3000,565000],[3200,610000],[3600,680000],[4000,725000]]
 
-    for i in range(n):
-        x = points.iloc[i].Study_Time
-        y = points.iloc[i].Marks
+df = pd.DataFrame(dataset,columns=['Area','Price'])
 
-        m_gradient+= -(2/n)*x*(y-(m_now*x+b_now))
-        b_gradient+= -(2/n)*x*(y-(m_now*x+b_now))
+df.to_csv('area_price')
+##########################
 
-    m = m_now - m_gradient*L
-    b = b_now - b_gradient*L
 
-    return m,b
+data = pd.read_csv('area_price')
 
-m = 0
-b = 0
-L = 0.0001
-epochs = 300
 
-for i in range(epochs):
-    if i%50==0:
-        print(f"Epochs {i}")
-    m,b = gradient_descent(m,b,data,L)
+#selecting the x and y values
+X = data['Area'].values
+Y = data['Price'].values
 
-print(m,b)
-plt.scatter(data.Study_Time,data.Marks,color="black")
-plt.plot(list(range(20,80)),[m*x+b for x in range(20,80)],color="red")
-plt.show()
+main = plt.scatter(X,Y)
+#plt.show()
 
+mean_x = np.mean(X)
+mean_y = np.mean(Y)
+
+n = len(X)
+
+numer = 0
+denom = 0
+
+for i in range(n):
+    numer += (X[i]-mean_x)*(Y[i]-mean_y)
+    denom += (X[i]-mean_x)**2
+
+m = numer/denom
+c = mean_y - (m*mean_x)
+
+print(m,c)
+
+x = X
+y = []
+
+for i in range(len(x)):
+    n = m*x[i]+c
+    y.append(n)
+
+
+#checking by Rsquared method
+
+num = 0
+den = 0
+
+for i in range(len(X)):
+    y_pred = m*X[i]+c
+    num+= (y[i]-y_pred)**2
+    den+= (y[i]-mean_y)**2
+
+r2 = 1 - (num/den)
+print(r2)
+
+      
 
 
 
