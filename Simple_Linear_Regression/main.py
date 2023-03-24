@@ -62,6 +62,11 @@ for i in range(len(X)):
 r2 = 1 - (num/den)
 print(r2)
 
+#Checking the graph
+plt.scatter(data.Area,data.Price)
+plt.plot(x,y)
+plt.show()
+
       
 
 
