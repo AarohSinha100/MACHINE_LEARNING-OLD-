@@ -41,7 +41,7 @@ for i in range(epochs):
 
 print(m,b)
 plt.scatter(data.Study_Time,data.Marks,color="black")
-plt.plot(list(range(20,80)),[m*x+b for x in range(20,80)],color="red")
+plt.plot(list(range(3,100)),[m*x+b for x in range(3,100)],color="red")
 plt.show()
 
 
