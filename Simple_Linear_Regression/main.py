@@ -51,15 +51,16 @@ for i in range(len(x)):
 
 #checking by Rsquared method
 
-num = 0
-den = 0
 
-for i in range(len(X)):
-    y_pred = m*X[i]+c
-    num+= (y[i]-y_pred)**2
-    den+= (y[i]-mean_y)**2
 
-r2 = 1 - (num/den)
+ss_t = 0
+ss_r = 0
+
+for i in range(n):
+    ss_t = (y_pred[i] - mean_y)**2
+    ss_r = (y[i] - mean_y)**2
+    
+r2 = ss_t/ss_r
 print(r2)
 
 #Checking the graph
